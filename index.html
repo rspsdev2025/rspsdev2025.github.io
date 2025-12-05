@@ -1,17 +1,223 @@
-<!DOCTYPE html>
+<!--
+ApexPS GitHub Pages single-file starter (index.html)
+Instructions:
+1) Create a GitHub repo named EXACTLY: ApexPS.github.io (or any name and enable Pages).
+2) Put this file as index.html at the repo root. Push to main branch.
+3) This file implements a lightweight SPA with hash routing so pages are accessible as:
+   - /#home  or / (default)          -> Home
+   - /#forums                        -> Forums
+   - /#store                         -> Store
+   - /#vote                          -> Vote
+   - /#hiscores                      -> Hiscores
+   - /#report                        -> Report
+   - /#rules                         -> Rules
+   - /#commands                      -> Commands
+   - /#rank-features                 -> Rank Features
+   - /#wikia                         -> Wikia (external link)
+   - /#ironman                       -> Ironman Modes
+   - /#hex                           -> Color Picker (external)
+   - /#discord                       -> Discord
+
+If you want real paths like /forums (not hash), you can create separate files forums.html, store.html, etc.
+Each of those can contain the same header/footer but only the page content. Or add a 404 redirect to index.html.
+-->
+
+<!doctype html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Apex - Home</title><link rel="stylesheet" href="style.css"></head>
-<body><header class="header"><img src="assets/logo.png" class="logo">
-<nav class="nav"><a href="index.html">Home</a><a href="play.html">Play</a>
-<a href="vote.html">Vote</a><a href="store.html">Store</a>
-<a href="discord.html" class="discord">Discord</a></nav></header>
-<section class="hero"><div class="hero-content"><h1>Welcome to <span>Apex</span></h1>
-<p>The next-generation RSPS.</p><div class="hero-buttons">
-<a href="play.html" class="btn primary">Play Now</a>
-<a href="discord.html" class="btn secondary">Discord</a>
-<a href="vote.html" class="btn secondary">Vote</a></div></div></section>
-<section class="features"><div class="feature"><img src="assets/pvm.png"><h3>Custom PvM</h3></div>
-<div class="feature"><img src="assets/pvp.png"><h3>Balanced PvP</h3></div>
-<div class="feature"><img src="assets/skills.png"><h3>Enhanced Skilling</h3></div></section>
-<footer class="footer"><p>Apex © 2025 — All Rights Reserved.</p></footer></body></html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ApexPS - Private Server</title>
+  <meta name="description" content="ApexPS - Oldschool RSPS GitHub Pages template" />
+  <style>
+    :root{--accent:#1f8ef1;--bg:#0f1720;--card:#0b1220;--muted:#9aa4b2;color-scheme:dark}
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;margin:0;background:linear-gradient(180deg,#071122 0%, #08121b 100%);color:#e6eef6;line-height:1.45}
+    header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(255,255,255,0.03)}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:46px;height:46px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#2dd4bf);display:flex;align-items:center;justify-content:center;font-weight:700;color:#021026}
+    nav a{color:var(--muted);text-decoration:none;margin:0 8px;padding:8px;border-radius:8px}
+    nav a.active{color:white;background:rgba(255,255,255,0.03)}
+    .container{max-width:1100px;margin:28px auto;padding:0 18px}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:22px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:16px}
+    h1{margin:0 0 10px}
+    .small{font-size:0.95rem;color:var(--muted)}
+    .btn{display:inline-block;padding:8px 12px;border-radius:10px;text-decoration:none;background:var(--accent);color:#021026;font-weight:600}
+    footer{margin-top:26px;padding:16px;text-align:center;color:var(--muted);font-size:0.9rem}
+    ul.links{list-style:none;padding:0;margin:8px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+    .nav-right{display:flex;align-items:center;gap:8px}
+    .code{background:#06121b;padding:10px;border-radius:8px;font-family:monospace;font-size:0.95rem}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}nav{display:none}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">A</div>
+      <div>
+        <div style="font-weight:700">ApexPS</div>
+        <div class="small">OldSchool RSPS • GitHub Pages template</div>
+      </div>
+    </div>
+    <nav id="main-nav">
+      <a href="#home" data-route="home">Home</a>
+      <a href="#forums" data-route="forums">Forums</a>
+      <a href="#store" data-route="store">Store</a>
+      <a href="#vote" data-route="vote">Vote</a>
+      <a href="#hiscores" data-route="hiscores">Hiscores</a>
+      <a href="#discord" data-route="discord">Discord</a>
+    </nav>
+    <div class="nav-right">
+      <a class="btn" id="play-btn" href="#play">Play</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="grid">
+      <section id="page" class="card">
+        <!-- content injected here -->
+      </section>
+
+      <aside class="card">
+        <h3>Quick Links</h3>
+        <ul class="links">
+          <li><a href="#forums" data-route="forums">Forums</a></li>
+          <li><a href="#store" data-route="store">Store</a></li>
+          <li><a href="#vote" data-route="vote">Vote</a></li>
+          <li><a href="#hiscores" data-route="hiscores">Hiscores</a></li>
+          <li><a href="#report" data-route="report">Report</a></li>
+          <li><a href="#rules" data-route="rules">Rules</a></li>
+          <li><a href="#commands" data-route="commands">Commands</a></li>
+          <li><a href="#rank-features" data-route="rank-features">Rank Features</a></li>
+        </ul>
+
+        <hr style="margin:12px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)"/>
+        <div class="small">External tools</div>
+        <ul class="links" style="margin-top:8px">
+          <li><a href="https://www.colorpicker.com" target="_blank">Color Picker</a></li>
+          <li><a href="https://www.Apex.wikia.com" target="_blank">Wikia</a></li>
+        </ul>
+      </aside>
+    </div>
+
+    <footer>
+      <div>Repository: <span class="code">ApexPS.github.io</span> — edit index.html and push to GitHub.</div>
+    </footer>
+  </main>
+
+  <script>
+    // User-provided constants (from your Java code) adapted to actual links used here.
+    const DomainUrl = 'https://ApexPS.github.io/';
+    const ForumUrl = DomainUrl + 'forums';
+    const StoreUrl = DomainUrl + 'store';
+    const VoteUrl = DomainUrl + 'vote';
+    const HiscoreUrl = DomainUrl + 'hiscores';
+    const ReportUrl = DomainUrl + 'forums/forumdisplay.php?fid=28';
+    const RuleUrl = DomainUrl + 'forums/showthread.php?tid=17';
+    const CommandsUrl = DomainUrl + 'forums/showthread.php?tid=73';
+    const RankFeaturesUrl = DomainUrl + 'forums/showthread.php?tid=147';
+    const WikiaUrl = 'https://www.Apex.wikia.com';
+    const IronManModesUrl = DomainUrl + 'forums/showthread.php?tid=12';
+    const HexUrl = 'https://www.colorpicker.com';
+    const DiscordUrl = DomainUrl + 'discord';
+
+    const routes = {
+      home: {
+        title: 'Welcome to ApexPS',
+        html: `<h1>ApexPS</h1>
+               <p class="small">A lightweight GitHub Pages template for an RSPS community. Use the links to navigate — everything is client-rendered.</p>
+               <p>Want the site to point to your real forum/store/hiscores? Edit the constants in <code>index.html</code> and replace with your external URLs.</p>
+               <div style="margin-top:12px"><a href="#forums" class="btn">Go to Forums</a></div>`
+      },
+      forums: {
+        title: 'Forums',
+        html: `<h1>Forums</h1>
+               <p class="small">This page is a placeholder. Typically you'd link to a forum software (phpBB, MyBB, XenForo) or embed a forum widget.</p>
+               <p>External forum link: <a href="${ForumUrl}" target="_blank">${ForumUrl}</a></p>`
+      },
+      store: {
+        title: 'Store',
+        html: `<h1>Store</h1>
+               <p class="small">Item store / donations page. You can embed a store iframe or link to an external store site.</p>
+               <p>Store: <a href="${StoreUrl}" target="_blank">${StoreUrl}</a></p>`
+      },
+      vote: {
+        title: 'Vote',
+        html: `<h1>Vote</h1>
+               <p class="small">Vote for the server on server lists to get rewards. You can embed vote links or buttons here.</p>
+               <p>Vote: <a href="${VoteUrl}" target="_blank">${VoteUrl}</a></p>`
+      },
+      hiscores: {
+        title: 'Hiscores',
+        html: `<h1>Hiscores</h1>
+               <p class="small">Display top players here. You can fetch a hiscores JSON endpoint and display a table.</p>
+               <p>Hiscores: <a href="${HiscoreUrl}" target="_blank">${HiscoreUrl}</a></p>`
+      },
+      report: {
+        title: 'Report Player',
+        html: `<h1>Report Player</h1>
+               <p class="small">Provide a form or link to the forums report thread.</p>
+               <p>Report URL: <a href="${DomainUrl + ReportUrl}" target="_blank">${DomainUrl + ReportUrl}</a></p>`
+      },
+      rules: {
+        title: 'Rules',
+        html: `<h1>Rules</h1>
+               <p class="small">Read the server rules carefully.</p>
+               <p>Rules thread: <a href="${DomainUrl + RuleUrl}" target="_blank">${DomainUrl + RuleUrl}</a></p>`
+      },
+      commands: {
+        title: 'Commands',
+        html: `<h1>Commands</h1>
+               <p class="small">List in-game commands here or link to the commands forum thread.</p>
+               <p>Commands: <a href="${DomainUrl + CommandsUrl}" target="_blank">${DomainUrl + CommandsUrl}</a></p>`
+      },
+      'rank-features': {
+        title: 'Rank Features',
+        html: `<h1>Rank Features</h1>
+               <p class="small">Explain ranks and privileges here.</p>
+               <p>Details: <a href="${DomainUrl + RankFeaturesUrl}" target="_blank">${DomainUrl + RankFeaturesUrl}</a></p>`
+      },
+      wikia: {title:'Wikia', html:`<h1>Wikia</h1><p class="small">External wiki</p><p><a href="${WikiaUrl}" target="_blank">${WikiaUrl}</a></p>`},
+      ironman: {title:'Ironman Modes', html:`<h1>Ironman Modes</h1><p class="small">Description & rules for Ironman modes.</p><p><a href="${DomainUrl + IronManModesUrl}" target="_blank">${DomainUrl + IronManModesUrl}</a></p>`},
+      hex: {title:'Color Picker', html:`<h1>Color Picker</h1><p class="small">Open color picker tool</p><p><a href="${HexUrl}" target="_blank">${HexUrl}</a></p>`},
+      discord: {title:'Discord', html:`<h1>Discord</h1><p class="small">Join our Discord to chat with players and staff.</p><p>Discord: <a href="${DiscordUrl}" target="_blank">${DiscordUrl}</a></p>`}
+    };
+
+    function render(route){
+      const p = routes[route] || routes.home;
+      document.title = p.title + ' — ApexPS';
+      document.getElementById('page').innerHTML = p.html;
+      // update nav
+      document.querySelectorAll('#main-nav a').forEach(a=>{
+        a.classList.toggle('active', a.getAttribute('data-route')===route);
+      });
+    }
+
+    function handleRouteFromHash(){
+      const raw = location.hash.replace('#','') || 'home';
+      const route = raw.split('/')[0];
+      render(route);
+    }
+
+    window.addEventListener('hashchange', handleRouteFromHash);
+    window.addEventListener('load', ()=>{
+      // if no hash, default to home
+      if(!location.hash) location.hash = '#home';
+      handleRouteFromHash();
+
+      // attach other links inside aside
+      document.querySelectorAll('[data-route]').forEach(el=>{
+        el.addEventListener('click', e=>{
+          // allow default; hashchange will handle rendering
+        });
+      });
+
+      // Play button behavior example
+      document.getElementById('play-btn').addEventListener('click', ()=>{
+        alert('Set your game client URL in the index.html script section to redirect players to a launcher or download.');
+      });
+    });
+  </script>
+</body>
+</html>
