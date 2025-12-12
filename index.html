@@ -4,61 +4,138 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ApexPS • Official Hub</title>
+  <link rel="icon" href="https://ApexPS.teamgames.io/favicon.ico" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
+    /* Reset & base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       color: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      margin: 0;
-      padding: 0;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      overflow: hidden;
       text-align: center;
+      position: relative;
     }
+
+    /* Animated background */
+    body::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.05), transparent 70%);
+      animation: rotateBG 30s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes rotateBG {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
     h1 {
       font-size: 3rem;
-      margin-bottom: 1rem;
-      text-shadow: 2px 2px 8px #000;
+      margin-bottom: 2rem;
+      text-shadow: 2px 2px 12px #000;
+      z-index: 1;
+      position: relative;
     }
+
     ul {
       list-style: none;
       padding: 0;
+      z-index: 1;
+      position: relative;
     }
+
     li {
       margin: 15px 0;
     }
+
     a {
       text-decoration: none;
       color: #fff;
       font-size: 1.5rem;
-      padding: 10px 20px;
+      padding: 12px 28px;
       border: 2px solid #fff;
       border-radius: 12px;
+      display: inline-block;
+      position: relative;
       transition: all 0.3s ease;
+      overflow: hidden;
+      z-index: 1;
     }
+
+    /* Glowing hover effect */
+    a::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.3), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: 12px;
+      z-index: -1;
+    }
+
+    a:hover::before {
+      opacity: 1;
+    }
+
     a:hover {
       background-color: #fff;
       color: #203a43;
-      transform: scale(1.05);
+      transform: scale(1.08);
+      box-shadow: 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.3);
     }
+
     footer {
-      margin-top: 40px;
+      margin-top: 50px;
       font-size: 0.9rem;
       opacity: 0.7;
+      z-index: 1;
+      position: relative;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      a {
+        font-size: 1.2rem;
+        padding: 10px 20px;
+      }
     }
   </style>
 </head>
 <body>
   <h1>Welcome to ApexPS</h1>
   <ul>
-    <li><a href="https://ApexPS.teamgames.io/vote" target="_blank">• Vote — earn rewards</a></li>
-    <li><a href="https://ApexPS.teamgames.io/hiscores" target="_blank">• Hiscores — top rankings</a></li>
-    <li><a href="https://ApexPS.teamgames.io/store" target="_blank">• Store — perks & cosmetics</a></li>
-    <li><a href="https://discord.gg/SMSmSE4X" target="_blank">• Discord — join the community</a></li>
+    <li><a href="https://ApexPS.teamgames.io/vote" target="_blank" aria-label="Vote to earn rewards on ApexPS">• Vote — earn rewards</a></li>
+    <li><a href="https://ApexPS.teamgames.io/hiscores" target="_blank" aria-label="View top rankings on ApexPS">• Hiscores — top rankings</a></li>
+    <li><a href="https://ApexPS.teamgames.io/store" target="_blank" aria-label="Visit the store for perks & cosmetics on ApexPS">• Store — perks & cosmetics</a></li>
+    <li><a href="https://discord.gg/SMSmSE4X" target="_blank" aria-label="Join the ApexPS Discord community">• Discord — join the community</a></li>
   </ul>
   <footer>© 2025 ApexPS • All rights reserved</footer>
 </body>
